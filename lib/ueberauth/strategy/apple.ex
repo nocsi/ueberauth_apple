@@ -48,7 +48,7 @@ defmodule Ueberauth.Strategy.Apple do
     opts = oauth_client_options_from_conn(conn)
 
     conn
-    |> modify_state_cookie(params)
+    #|> modify_state_cookie(params)
     |> redirect!(OAuth.authorize_url!(params, opts))
   end
 
@@ -57,7 +57,7 @@ defmodule Ueberauth.Strategy.Apple do
   defp modify_state_cookie(conn, params) do
     if Keyword.get(params, :response_mode) == "form_post" do
       state_cookie = conn
-                     |> Conn.fetch_session()
+      #               |> Conn.fetch_session()
                      |> Map.get(:cookies)
                      |> Map.get("ueberauth.state_param")
       # state_cookie = conn.resp_cookies["ueberauth.state_param"]
