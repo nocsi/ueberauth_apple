@@ -21,7 +21,7 @@ defmodule Ueberauth.Strategy.Apple do
       Defaults to no scopes (`""`).
 
   """
-  use Ueberauth.Strategy, uid_field: :uid, default_scope: "", ignores_csrf_attack: false
+  use Ueberauth.Strategy, uid_field: :uid, default_scope: "", ignores_csrf_attack: true
 
   alias Ueberauth.Auth.Info
   alias Ueberauth.Auth.Credentials
