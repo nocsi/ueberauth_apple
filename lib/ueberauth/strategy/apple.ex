@@ -26,6 +26,7 @@ defmodule Ueberauth.Strategy.Apple do
   alias Ueberauth.Auth.Info
   alias Ueberauth.Auth.Credentials
   alias Ueberauth.Auth.Extra
+  alias Ueberauth.Strategy.Helpers
   alias Ueberauth.Strategy.Apple.OAuth
   alias Ueberauth.Strategy.Apple.Token
 
