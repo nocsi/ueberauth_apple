@@ -49,7 +49,7 @@ defmodule Ueberauth.Strategy.Apple do
     opts = oauth_client_options_from_conn(conn)
 
     conn
-    #|> modify_state_cookie(params)
+    |> modify_state_cookie(params)
     |> redirect!(OAuth.authorize_url!(params, opts))
   end
 
@@ -62,13 +62,13 @@ defmodule Ueberauth.Strategy.Apple do
                      |> Map.get(:cookies)
                      |> Map.get("ueberauth.state_param")
       # state_cookie = conn.resp_cookies["ueberauth.state_param"]
-      conn
-      |> Conn.put_resp_cookie("uberauth.state_param", state_cookie, same_site: "None")
-      |> Helpers.add_state_param(state_cookie)
+      #conn
+      #|> Conn.put_resp_cookie("uberauth.state_param", state_cookie, same_site: "None")
+      #|> Helpers.add_state_param(state_cookie)
 
-      #modified_cookie = Map.merge(state_cookie, %{same_site: "None", secure: true})
+      modified_cookie = Map.merge(state_cookie, %{same_site: "None", secure: true})
 
-      #%{conn | resp_cookies: Map.put(conn.resp_cookies, "ueberauth.state_param", modified_cookie)}
+      %{conn | resp_cookies: Map.put(conn.resp_cookies, "ueberauth.state_param", modified_cookie)}
     else
       conn
     end
