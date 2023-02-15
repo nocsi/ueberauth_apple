@@ -21,12 +21,11 @@ defmodule Ueberauth.Strategy.Apple do
       Defaults to no scopes (`""`).
 
   """
-  use Ueberauth.Strategy, uid_field: :uid, default_scope: "", ignores_csrf_attack: true
+  use Ueberauth.Strategy, uid_field: :uid, default_scope: "", ignores_csrf_attack: false
 
   alias Ueberauth.Auth.Info
   alias Ueberauth.Auth.Credentials
   alias Ueberauth.Auth.Extra
-  alias Ueberauth.Strategy.Helpers
   alias Ueberauth.Strategy.Apple.OAuth
   alias Ueberauth.Strategy.Apple.Token
 
@@ -57,15 +56,7 @@ defmodule Ueberauth.Strategy.Apple do
   @spec modify_state_cookie(Plug.Conn.t(), keyword) :: Plug.Conn.t()
   defp modify_state_cookie(conn, params) do
     if Keyword.get(params, :response_mode) == "form_post" do
-      state_cookie = conn
-      #               |> Conn.fetch_session()
-                     |> Map.get(:cookies)
-                     |> Map.get("ueberauth.state_param")
-      # state_cookie = conn.resp_cookies["ueberauth.state_param"]
-      #conn
-      #|> Conn.put_resp_cookie("uberauth.state_param", state_cookie, same_site: "None")
-      #|> Helpers.add_state_param(state_cookie)
-
+      state_cookie = conn.resp_cookies["ueberauth.state_param"]
       modified_cookie = Map.merge(state_cookie, %{same_site: "None", secure: true})
 
       %{conn | resp_cookies: Map.put(conn.resp_cookies, "ueberauth.state_param", modified_cookie)}
